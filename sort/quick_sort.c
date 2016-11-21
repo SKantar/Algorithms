@@ -19,7 +19,7 @@ void quick_sort(int array[], int lower_bound, int upper_bound) {
     int pivot = array[(a + b) / 2];
 
 
-    while (a <= b) {
+    while (a < b) {
         while (array[a] < pivot)
             a++;
         while (array[b] > pivot)
@@ -31,12 +31,14 @@ void quick_sort(int array[], int lower_bound, int upper_bound) {
             b--;
             a++;
         }
-
-        if (lower_bound < b)
-            quick_sort(array, lower_bound, b);
-        if (upper_bound > a)
-            quick_sort(array, a, upper_bound);
     }
+
+
+
+    if (lower_bound < b)
+        quick_sort(array, lower_bound, b);
+    if (upper_bound > a)
+        quick_sort(array, a, upper_bound);
 }
 
 int main()
