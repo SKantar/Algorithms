@@ -46,7 +46,7 @@ int main()
 
     array = generate_array(n);
     print_array(array, n);
-    quick_sort(array, 0, n);
+    quick_sort(array, 0, n - 1);
     print_array(array, n);
 
 
