@@ -1,4 +1,5 @@
 //
+// C program for implementation of merge sort
 // Created by skantar on 21/11/16.
 //
 
