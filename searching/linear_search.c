@@ -11,19 +11,6 @@
 int *generate_array(int n);
 void print_array(int *array, int n);
 
-int binary_search(int *array, int lower_bound, int upper_bound, int key){
-    int mid = (lower_bound + upper_bound) / 2;
-    if(lower_bound > upper_bound)
-        return -1;
-    if(array[mid] == key)
-        return mid;
-    else if(array[mid] < key)
-        return binary_search(array, mid + 1, upper_bound, key);
-    else if(array[mid] > key)
-        return binary_search(array, lower_bound, mid - 1, key);
-}
-
-
 int linear_search(int *array, int n, int key){
     int i;
     for(i = 0; i < n; i++)
