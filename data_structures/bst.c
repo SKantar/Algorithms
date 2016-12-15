@@ -4,11 +4,15 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#define max(a, b) a < b? b:a;
+
 typedef struct Node{
     int data;
     struct Node *left, *right;
 }Node;
+
+int max(int a, int b){
+    return a < b ? b : a;
+}
 
 void insert(Node **root, int data){
     Node *node = (Node*) malloc(sizeof(Node));
@@ -63,32 +67,59 @@ Node *max_node(Node *root){
 
 /* Given a binary search tree and a key, this function deletes the key
    and returns the new root */
-Node *remove(Node *root, int key) {
+//Node *remove(Node *root, int key) {
+//
+//    if(root == NULL)
+//        return NULL;
+//
+//    if(key < root->data)
+//        root->left = remove(root->left, key);
+//    else if(key > root->data)
+//        root->right = remove(root->right, key);
+//    else {
+//        if(root->left != NULL) {
+//            root->data = max_node(root->left)->data;
+//            root->left = remove(root->left, root->data);
+//        }
+//        else if(root->right != NULL) {
+//            root->data = min_node(root->right)->data;
+//            root->right = remove(root->right, root->data);
+//        }
+//        else {
+//            free(root);
+//            return NULL;
+//        }
+//    }
+//
+//
+//}
 
-    if(root == NULL)
-        return NULL;
 
-    if(key < root->data)
-        root->left = remove(root->left, key);
-    else if(key > root->data)
-        root->right = remove(root->right, key);
-    else {
-        if(root->left != NULL) {
-            root->data = max_node(root->left)->data;
-            root->left = remove(root->left, root->data);
-        }
-        else if(root->right != NULL) {
-            root->data = min_node(root->right)->data;
-            root->right = remove(root->right, root->data);
-        }
-        else {
-            free(root);
-            return NULL;
+void remove(Node **root, int key){
+
+    if(!(*root)) return;
+
+    if(key < (*root)->data)
+        remove(&(*root)->left, key);
+    else if(key > (*root)->data)
+        remove(&(*root)->right, key);
+    else{
+        if((*root)->left != NULL){
+            (*root)->data = max_node((*root)->left)->data;
+            remove(&(*root)->left, (*root)->data);
+        }else if((*root)->right != NULL) {
+            (*root)->data = min_node((*root)->right)->data;
+            remove(&(*root)->right, (*root)->data);
+        }else{
+            free(*root);
+            *root = NULL;
         }
     }
 
-
 }
+
+
+
 
 // This function finds predecessor and successor of key in BST.
 // It sets pre and suc as predecessor and successor respectively
@@ -172,18 +203,23 @@ int main(){
     insert(&root, 40);
     insert(&root, 18);
     insert(&root, 2);
+    // 18 20 40 110
+    remove(&root, 2);
+    remove(&root, 5);
+    remove(&root, 3);
+    remove(&root, 1);
 
-    print(root);
-    findPreSuc(root, &pre, &suc, 40);
-    if(pre != NULL)
-        printf("\n Pre: %d ", pre->data);
-    if(suc != NULL)
-        printf("\n Suc: %d", suc->data);
-
-    printf("\nis BST %d", isBST(root));
-
-
-    printf("\nLCA %d", lca(root, 40, 18)->data);
+//    print(root);
+//    findPreSuc(root, &pre, &suc, 40);
+//    if(pre != NULL)
+//        printf("\n Pre: %d ", pre->data);
+//    if(suc != NULL)
+//        printf("\n Suc: %d", suc->data);
+//
+//    printf("\nis BST %d", isBST(root));
+//
+//
+//    printf("\nLCA %d", lca(root, 40, 18)->data);
 
 //    root = remove(root, 18);
 //    root = remove(root, 3);
@@ -196,7 +232,7 @@ int main(){
 //    print(root);
 //    clear(root);
 //    root = NULL;
-//    print(root);
+    print(root);
 
 //    printf("\n%d\n", min_node(root)->data);
 
